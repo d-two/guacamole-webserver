@@ -67,6 +67,7 @@ RUN rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/* /usr/bin/qemu-*-static
 
 ### Configuration
 ENV GUACAMOLE_HOME=/data/guacamole
-COPY guacamole.properties ${GUACAMOLE_HOME}/
+
+#COPY guacamole.properties ${GUACAMOLE_HOME}/
 
 WORKDIR /data
