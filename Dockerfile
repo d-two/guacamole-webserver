@@ -31,7 +31,7 @@ WORKDIR ${GUACAMOLE_HOME}
 RUN set -x \
   && rm -rf ${CATALINA_HOME}/webapps/ROOT \
   && curl -SLo ${CATALINA_HOME}/webapps/ROOT.war "http://apache.org/dyn/closer.cgi?action=download&filename=guacamole/${GUACAMOLE_VERSION}/binary/guacamole-${GUACAMOLE_VERSION}.war" \
-  && curl -SLo mysql-connector-java-8.0.22.tar.gz "http://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-8.0.22.tar.gz" \
+  && curl -SLo mysql-connector.tar.gz "http://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-8.0.22.tar.gz" \
   && tar xzf mysql-connector.tar.gz \
   && mv mysql-connector-java-*/mysql-connector-java-*.jar ${GUACAMOLE_VERSION}/lib \
   && rm -rf mysql-connector* \
