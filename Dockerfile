@@ -52,22 +52,10 @@ RUN set -xe \
     && rm -rf guacamole-${i}-${GUACAMOLE_VERSION} guacamole-${i}-${GUACAMOLE_VERSION}.tar.gz \
   ;done
 
-# Add optional extensions
-RUN set -xe \
-  && mkdir ${GUACAMOLE_HOME}/extensions-available \
-  && for i in auth-ldap auth-duo auth-header auth-cas auth-openid auth-quickconnect auth-totp; do \
-    echo "http://apache.org/dyn/closer.cgi?action=download&filename=guacamole/${GUACAMOLE_VERSION}/binary/guacamole-${i}-${GUACAMOLE_VERSION}.tar.gz" \
-    && curl -SLO "http://apache.org/dyn/closer.cgi?action=download&filename=guacamole/${GUACAMOLE_VERSION}/binary/guacamole-${i}-${GUACAMOLE_VERSION}.tar.gz" \
-    && tar -xzf guacamole-${i}-${GUACAMOLE_VERSION}.tar.gz \
-    && cp guacamole-${i}-${GUACAMOLE_VERSION}/guacamole-${i}-${GUACAMOLE_VERSION}.jar ${GUACAMOLE_HOME}/extensions-available/ \
-    && rm -rf guacamole-${i}-${GUACAMOLE_VERSION} guacamole-${i}-${GUACAMOLE_VERSION}.tar.gz \
-  ;done
-
 RUN rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/* /usr/bin/qemu-*-static
 
 ### Configuration
 ENV GUACAMOLE_HOME=/data/guacamole
-
-#COPY guacamole.properties ${GUACAMOLE_HOME}/
+COPY guacamole.properties ${GUACAMOLE_HOME}/
 
 WORKDIR /data
