@@ -33,7 +33,7 @@ RUN set -x \
   && curl -SLo ${CATALINA_HOME}/webapps/ROOT.war "http://apache.org/dyn/closer.cgi?action=download&filename=guacamole/${GUACAMOLE_VERSION}/binary/guacamole-${GUACAMOLE_VERSION}.war" \
   && curl -SLo mysql-connector.tar.gz "http://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-8.0.22.tar.gz" \
   && tar xzf mysql-connector.tar.gz \
-  && mv mysql-connector-java-*/mysql-connector-java-*.jar ${GUACAMOLE_VERSION}/lib \
+  && mv mysql-connector-java-*/mysql-connector-java-*.jar ${GUACAMOLE_HOME}/lib \
   && rm -rf mysql-connector* \
   && curl -SLO "http://apache.org/dyn/closer.cgi?action=download&filename=guacamole/${GUACAMOLE_VERSION}/binary/guacamole-auth-jdbc-${GUACAMOLE_VERSION}.tar.gz" \
   && tar -xzf guacamole-auth-jdbc-${GUACAMOLE_VERSION}.tar.gz \
