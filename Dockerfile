@@ -21,7 +21,7 @@ RUN echo 'export CATALINA_OPTS="$RUNTIME_OPTS"' > bin/setenv.sh
 
 ### Guacamole jdbc auth extension
 # Fetch and install Guacamole jdbc auth extension libs
-mkdir -p ${GUACAMOLE_HOME} \
+RUN mkdir -p ${GUACAMOLE_HOME} \
          ${GUACAMOLE_HOME}/lib \
          ${GUACAMOLE_HOME}/extensions;
 
