@@ -52,10 +52,11 @@ RUN set -xe \
     && rm -rf guacamole-${i}-${GUACAMOLE_VERSION} guacamole-${i}-${GUACAMOLE_VERSION}.tar.gz \
   ;done
 
-RUN rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/* /usr/bin/qemu-*-static
-
 ### Configuration
 ENV GUACAMOLE_HOME=/data/guacamole
-COPY guacamole.properties ${GUACAMOLE_HOME}/
 
 WORKDIR /data
+
+COPY guacamole.properties ${GUACAMOLE_HOME}/
+
+RUN rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/* /usr/bin/qemu-*-static
