@@ -19,13 +19,19 @@ RUN rm -rf webapps/*
 #   '-e RUNTIME_OPTS="-Xmx256m"' when starting a container.
 RUN echo 'export CATALINA_OPTS="$RUNTIME_OPTS"' > bin/setenv.sh
 
-### Guacamole jdbc auth extension
-# Fetch and install Guacamole jdbc auth extension libs
-RUN mkdir -p ${GUACAMOLE_HOME} \
-         ${GUACAMOLE_HOME}/lib \
-         ${GUACAMOLE_HOME}/extensions;
+# Apply the s6-overlay
+RUN curl -SLO "https://github.com/just-containers/s6-overlay/releases/download/v1.20.0.0/s6-overlay-${DOCKER_IMAGE_ARCH}.tar.gz" \
+  && tar -xzf s6-overlay-${DOCKER_IMAGE_ARCH}.tar.gz -C / \
+  && tar -xzf s6-overlay-${DOCKER_IMAGE_ARCH}.tar.gz -C /usr ./bin \
+  && rm -rf s6-overlay-${DOCKER_IMAGE_ARCH}.tar.gz \
+  && mkdir -p ${GUACAMOLE_HOME} \
+      ${GUACAMOLE_HOME}/lib \
+      ${GUACAMOLE_HOME}/extensions;
 
 WORKDIR ${GUACAMOLE_HOME}
+
+### Guacamole jdbc auth extension
+# Fetch and install Guacamole jdbc auth extension libs
 
 # Install guacamole-client and postgres auth adapter
 RUN set -x \
@@ -60,3 +66,5 @@ WORKDIR /data
 COPY rootfs /
 
 RUN rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/* /usr/bin/qemu-*-static
+
+ENTRYPOINT [ "/init" ]
