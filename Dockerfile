@@ -14,10 +14,7 @@ ENV GUACAMOLE_HOME              /app/guacamole
 # Disable Tomcat's manager application.
 RUN rm -rf webapps/*
 
-# Expose tomcat runtime options through the RUNTIME_OPTS environment variable.
-#   Example to set the JVM's max heap size to 256MB use the flag
-#   '-e RUNTIME_OPTS="-Xmx256m"' when starting a container.
-RUN echo 'export CATALINA_OPTS="$RUNTIME_OPTS"' > bin/setenv.sh
+ARG DOCKER_IMAGE_ARCH
 
 # Apply the s6-overlay
 RUN curl -SLO "https://github.com/just-containers/s6-overlay/releases/download/v1.20.0.0/s6-overlay-${DOCKER_IMAGE_ARCH}.tar.gz" \
