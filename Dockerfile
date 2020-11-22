@@ -58,7 +58,7 @@ RUN set -xe \
 ### Configuration
 ENV GUACAMOLE_HOME=/data/guacamole
 
-WORKDIR /data
+WORKDIR /config
 
 COPY rootfs /
 
