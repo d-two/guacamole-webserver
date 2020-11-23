@@ -23,7 +23,9 @@ RUN curl -SLO "https://github.com/just-containers/s6-overlay/releases/download/v
   && rm -rf s6-overlay-${DOCKER_IMAGE_ARCH}.tar.gz \
   && mkdir -p ${GUACAMOLE_HOME} \
       ${GUACAMOLE_HOME}/lib \
-      ${GUACAMOLE_HOME}/extensions;
+      ${GUACAMOLE_HOME}/extensions \
+      ${GUACAMOLE_HOME}/mysql \
+      ${GUACAMOLE_HOME}/postgresql;
 
 WORKDIR ${GUACAMOLE_HOME}
 
@@ -34,6 +36,7 @@ WORKDIR ${GUACAMOLE_HOME}
 RUN set -x \
   && rm -rf ${CATALINA_HOME}/webapps/ROOT \
   && curl -SLo ${CATALINA_HOME}/webapps/ROOT.war "http://apache.org/dyn/closer.cgi?action=download&filename=guacamole/${GUACAMOLE_VERSION}/binary/guacamole-${GUACAMOLE_VERSION}.war" \
+  && curl -SLo ${GUACAMOLE_HOME}/lib/postgresql-42.1.4.jar "https://jdbc.postgresql.org/download/postgresql-42.1.4.jar" \
   && curl -SLo mysql-connector.tar.gz "http://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-8.0.22.tar.gz" \
   && tar xzf mysql-connector.tar.gz \
   && mv mysql-connector-java-*/mysql-connector-java-*.jar ${GUACAMOLE_HOME}/lib \
@@ -41,7 +44,9 @@ RUN set -x \
   && curl -SLO "http://apache.org/dyn/closer.cgi?action=download&filename=guacamole/${GUACAMOLE_VERSION}/binary/guacamole-auth-jdbc-${GUACAMOLE_VERSION}.tar.gz" \
   && tar -xzf guacamole-auth-jdbc-${GUACAMOLE_VERSION}.tar.gz \
   && cp -R guacamole-auth-jdbc-${GUACAMOLE_VERSION}/mysql/guacamole-auth-jdbc-mysql-${GUACAMOLE_VERSION}.jar ${GUACAMOLE_HOME}/extensions/ \
-  && cp -R guacamole-auth-jdbc-${GUACAMOLE_VERSION}/mysql/schema ${GUACAMOLE_HOME}/ \
+  && cp -R guacamole-auth-jdbc-${GUACAMOLE_VERSION}/mysql/schema ${GUACAMOLE_HOME}/mysql/ \
+  && cp -R guacamole-auth-jdbc-${GUACAMOLE_VERSION}/postgresql/guacamole-auth-jdbc-postgresql-${GUACAMOLE_VERSION}.jar ${GUACAMOLE_HOME}/extensions/ \
+  && cp -R guacamole-auth-jdbc-${GUACAMOLE_VERSION}/postgresql/schema ${GUACAMOLE_HOME}/postgresql/ \
   && rm -rf guacamole-auth-jdbc-${GUACAMOLE_VERSION} guacamole-auth-jdbc-${GUACAMOLE_VERSION}.tar.gz
 
 # Add optional extensions
