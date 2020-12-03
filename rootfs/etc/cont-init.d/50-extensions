@@ -1,11 +1,18 @@
 #!/usr/bin/with-contenv sh
 
 # clean up extensions
-for i in auth-ldap auth-duo auth-header auth-cas auth-openid auth-quickconnect auth-totp; do
-  rm -rf ${GUACAMOLE_HOME}/extensions/guacamole-${i}-${GUAC_VER}.jar
+for i in ldap duo header cas openid quickconnect totp
+do
+  rm -rf ${GUACAMOLE_HOME}/extensions/guacamole-auth-${i}-${GUAC_VER}.jar
 done
 
 # enable extensions
-for i in $(echo "$EXTENSIONS" | tr "," " "); do
-  cp ${GUACAMOLE_HOME}/extensions-available/guacamole-${i}-${GUAC_VER}.jar ${GUACAMOLE_HOME}/extensions
-done
+while IFS= read -r line
+do
+  for i in ldap duo header cas openid quickconnect totp
+    if [[ "$line" == *"${i}-"* ]]
+    then
+      cp ${GUACAMOLE_HOME}/extensions-available/guacamole-auth-${i}-${GUAC_VER}.jar ${GUACAMOLE_HOME}/extensions
+    fi
+  done
+done < ${GUACAMOLE_HOME}/guacamole.properties
