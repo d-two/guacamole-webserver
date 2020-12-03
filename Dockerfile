@@ -2,7 +2,7 @@ ARG BASE_IMAGE_PREFIX
 
 FROM multiarch/qemu-user-static as qemu
 
-FROM ${BASE_IMAGE_PREFIX}tomcat:jre8-slim
+FROM ${BASE_IMAGE_PREFIX}tomcat:8.5-jre8-slim
 
 COPY --from=qemu /usr/bin/qemu-*-static /usr/bin/
 
