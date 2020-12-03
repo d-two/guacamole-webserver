@@ -10,6 +10,7 @@ done
 while IFS= read -r line
 do
   for i in ldap duo header cas openid quickconnect totp
+  do
     if [[ "$line" == *"${i}-"* ]]
     then
       cp -nv ${GUACAMOLE_HOME}/extensions-available/guacamole-auth-${i}-${GUAC_VER}.jar ${GUACAMOLE_HOME}/extensions
