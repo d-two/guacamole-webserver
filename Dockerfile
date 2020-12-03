@@ -16,6 +16,10 @@ RUN rm -rf webapps/*
 
 ARG DOCKER_IMAGE_ARCH
 
+RUN apt-get update              && \
+    apt-get install -y curl     && \
+    rm -rf /var/lib/apt/lists/*
+
 # Apply the s6-overlay
 RUN curl -SLO "https://github.com/just-containers/s6-overlay/releases/download/v1.20.0.0/s6-overlay-${DOCKER_IMAGE_ARCH}.tar.gz" \
   && tar -xzf s6-overlay-${DOCKER_IMAGE_ARCH}.tar.gz -C / \
