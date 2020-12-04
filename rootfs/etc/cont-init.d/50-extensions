@@ -3,7 +3,7 @@
 # clean up extensions
 for i in ldap duo header cas openid quickconnect totp
 do
-  rm -rf ${GUACAMOLE_HOME}/extensions/guacamole-auth-${i}-${GUAC_VER}.jar
+  rm -rf /data/guacamole/extensions/guacamole-auth-${i}-${GUAC_VER}.jar
 done
 
 # enable extensions
@@ -13,7 +13,7 @@ do
   do
     if [ "$line" = *"${i}-"* ]
     then
-      cp -nv ${GUACAMOLE_HOME}/extensions-available/guacamole-auth-${i}-${GUAC_VER}.jar ${GUACAMOLE_HOME}/extensions
+      cp -nv /data/guacamole/extensions-available/guacamole-auth-${i}-${GUAC_VER}.jar /data/guacamole/extensions
     fi
   done
-done < ${GUACAMOLE_HOME}/guacamole.properties
+done < /data/guacamole/guacamole.properties
