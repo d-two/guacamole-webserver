@@ -16,8 +16,8 @@ RUN rm -rf webapps/*
 
 ARG DOCKER_IMAGE_ARCH
 
-RUN apt-get update              && \
-    apt-get install -y curl     && \
+RUN apt-get update                            && \
+    apt-get install -y curl mariadb-client    && \
     rm -rf /var/lib/apt/lists/*
 
 # Apply the s6-overlay
