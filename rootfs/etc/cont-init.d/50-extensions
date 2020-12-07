@@ -11,9 +11,8 @@ while IFS= read -r line
 do
   for i in ldap duo header cas openid quickconnect totp
   do
-    if [ "$line" = "*${i}-*" ]
-    then
-      cp -nv ${GUACAMOLE_HOME}/extensions-available/guacamole-auth-${i}-${GUACAMOLE_VERSION}.jar ${GUACAMOLE_HOME}/extensions
-    fi
+    case "$line" in
+        *"${i}-"*) cp -nv ${GUACAMOLE_HOME}/extensions-available/guacamole-auth-${i}-${GUACAMOLE_VERSION}.jar ${GUACAMOLE_HOME}/extensions ;;
+    esac
   done
 done < /data/guacamole/guacamole.properties
