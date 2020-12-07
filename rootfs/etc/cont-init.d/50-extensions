@@ -15,4 +15,4 @@ do
         *"${i}-"*) cp -nv ${GUACAMOLE_HOME}/extensions-available/guacamole-auth-${i}-${GUACAMOLE_VERSION}.jar ${GUACAMOLE_HOME}/extensions ;;
     esac
   done
-done < /data/guacamole/guacamole.properties
+done < ${GUACAMOLE_HOME}/guacamole.properties
